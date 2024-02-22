@@ -1,23 +1,14 @@
 package com.boaglio.wgethack.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "podcast")
+ 
 public class Podcast {
 
-	@Id
-	@GeneratedValue
+ 
 	private Integer id;
 
 	private String status;
 	private String dia;
-
-	@ManyToOne
+ 
 	private Tipo tipo;
 
 	public String getStatus() {

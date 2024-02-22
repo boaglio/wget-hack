@@ -1,16 +1,8 @@
 package com.boaglio.wgethack.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "tipo")
+ 
 public class Tipo {
-
-	@Id
-	@GeneratedValue
+ 
 	private Integer id;
 
 	private String nome;

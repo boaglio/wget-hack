@@ -7,13 +7,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.boaglio.wgethack.domain.Podcast;
-import com.boaglio.wgethack.domain.Tipo;
-import com.boaglio.wgethack.repository.WgetDAO;
-import com.boaglio.wgethack.repository.WgetRepository;
+import com.boaglio.wgethack.domain.Tipo; 
 import com.boaglio.wgethack.type.Status;
 
 /**
@@ -33,12 +33,12 @@ public class BaixaPodcastsDaCBN {
 	static SimpleDateFormat dateFormatForYear = new SimpleDateFormat("yyyy");
 	static SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("yyyy-MM");
 
-	private static final Logger logger = Logger.getLogger(BaixaPodcastsDaCBN.class);
+	private static final Logger logger = LogManager.getLogger();
 
 	public static void main(String[] args) {
-
-		WgetRepository repositorio = new WgetDAO();
-		List<Tipo> todosOsTipos = repositorio.getTodosTipos();
+ 
+		List<Tipo> todosOsTipos = List.of(new Tipo());
+		Map<String,Podcast> podcasts = Map.of("p1", new Podcast());
 
 		for (Tipo tipo : todosOsTipos) {
 
@@ -76,14 +76,7 @@ public class BaixaPodcastsDaCBN {
 				Podcast podcast = new Podcast();
 				podcast.setTipo(tipo);
 				podcast.setDia(dateFormat.format(dia.getTime()));
-
-				Podcast p = repositorio.buscaPodcastById(podcast);
-
-				if (p != null) {
-
-					logger.info("Podcast armazenado: " + p.getDia() + " status:" + p.getStatus());
-
-				} else {
+ 
 
 					// verifica se o arquivo existe
 					String nomeDoArquivo = montaNomeDoArquivo(podcast);
@@ -128,9 +121,8 @@ public class BaixaPodcastsDaCBN {
 
 					}
 
-					repositorio.gravaStatus(podcast);
+					logger.info("podcast = "+podcast);
 
-				}
 
 				contador++;
 
